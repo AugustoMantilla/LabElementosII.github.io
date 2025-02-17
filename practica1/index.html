@@ -160,7 +160,7 @@
                                 Luego, en el Arduino IDE, seleccionamos la placa correspondiente (Arduino UNO) y el puerto al 
                                 que está conectado, como se muestra en la siguiente imagen. 
                             </p>
-                            <center><img class="img-fluid rounded"  width="600px" src="img/arduino uno con puerto.png" alt="..." />
+                            <center><img class="img-fluid rounded"  width="600px" src="img/arduino uno con puerto.png" alt="..." /></center>
                             <p class="fs-6 mb-4">
                                 Por último, para cargar el código en el Arduino UNO, debemos dirigirnos a la segunda barra 
                                 superior del Arduino IDE y hacer clic en el ícono de la flecha que apunta hacia la derecha, 
@@ -169,6 +169,36 @@
                                 ejecutar el programa que acabamos de subir.
                             </p>
                             <center><img class="img-fluid rounded"  width="600px" src="img/cargar codigo arduino.png" alt="..." /></center>
+
+                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ESP32</b></h2>
+                            <center><img class="img-fluid rounded"  width="400px" src="img/ESP32.png" alt="..." /></center>
+                            <p class="fs-6 mb-4">
+                                Similar al Arduino UNO, para programar el ESP32 necesitamos un cable <b>USB Tipo A a USB Tipo C</b> 
+                                (o micro USB). Este cable se utiliza para conectar la placa ESP32 a nuestro equipo (laptop) a 
+                                través de uno de los puertos USB disponibles.
+                            </p>
+                            <center><img class="img-fluid rounded"  width="600px" src="img/ESP32 con puerto.png" alt="..." /></center>
+
+                            <p class="fs-6 mb-4">
+                                Siguiendo los mismos pasos que con el Arduino UNO, subimos el código al ESP32. Sin embargo, en 
+                                este caso, es necesario esperar un poco más que con el Arduino UNO, ya que el proceso de carga 
+                                puede tardar unos segundos adicionales debido a la mayor complejidad y capacidad del ESP32.
+                            </p>
+                            <center><img class="img-fluid rounded"  width="600px" src="img/cargar codigo esp32.png" alt="..." /></center>
+
+                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ATtiny45</b></h2>
+                            <center><img class="img-fluid rounded"  width="400px" src="img/attiny45-c4x-removebg-preview.png" alt="..." /></center>
+                            <p class="fs-6 mb-4">
+                                A diferencia de los otros dos microcontroladores, el ATtiny45 no puede programarse de manera 
+                                directa conectándolo con un cable USB. En este caso, es necesario utilizar un Arduino como 
+                                programador. Para hacer esto, primero debemos configurar el Arduino como un <b>ISP</b> 
+                                (In-System Programmer).
+                            </p>
+                            <p class="fs-6 mb-4">
+                                Para configurar el Arduino como ISP debemos de ir a <b>File/Examples/ArduinoISP/ArduinoISP</b>
+                                como se muestra en la siguiente imagen
+                            </p>
+                            <center><img class="img-fluid rounded"  width="600px" src="img/p1 arduino isp.png" alt="..." /></center>
 
                             <p id="simulacion">
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5">Simulación</h1>
