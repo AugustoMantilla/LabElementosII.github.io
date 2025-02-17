@@ -71,7 +71,7 @@
                         <!-- ETIQUETAS O TOPICOS IMPORTANTES DE LA PRACTICA-->
                         <a class="badge bg-primary text-decoration-none link-light" >Arduino</a>
                         <a class="badge bg-primary text-decoration-none link-light" >ESP32</a>
-                        <a class="badge bg-primary text-decoration-none link-light" >ATtiny45</a>
+                        <a class="badge bg-primary text-decoration-none link-light" >ATtiny85</a>
 
                     </header>
                 </div>
@@ -98,7 +98,7 @@
                         <h2 class="fw-bolder mb-4 mt-5 fs-5" >- Introducción -</h2>
                         <p class="fs-6 mb-4">
                             A lo largo de esta primera práctica, vamos a comparar diferentes tipos de microcontroladores, 
-                            específicamente el Arduino UNO, el ESP32 y el ATtiny45. Estos serán evaluados en función de cómo 
+                            específicamente el Arduino UNO, el ESP32 y el ATtiny85. Estos serán evaluados en función de cómo 
                             se programa cada microcontrolador, es decir, si requieren un programador externo para cargar el 
                             código o no.
                         </p>
@@ -117,7 +117,7 @@
                             <ul>
                                 <li>ESP32: 1</li>
                                 <li>Arduino UNO: 1</li>
-                                <li>ATtiny45: 1</li>
+                                <li>ATtiny85: 1</li>
                                 <li>Diodo LED: 1</li>
                                 <li>Resistencias 300Ω: 2</li>
                                 <li>Push button: 1</li>
@@ -139,9 +139,9 @@
                         </p>
                             <center><img class="img-fluid rounded"  width="200px" src="img/Arduino_IDE_logo.png" alt="..." /></center>
                             <p class="fs-6 mb-4">
-                                Una vez que hemos descargado el Arduino IDE, el siguiente paso es agregar las placas del <b>ATtiny45</b> 
+                                Una vez que hemos descargado el Arduino IDE, el siguiente paso es agregar las placas del <b>ATtiny85</b> 
                                 y del <b>ESP32</b>. Estas placas se pueden encontrar en los siguientes enlaces: <a href="https://espressif.github.io/arduino-esp32/package_esp32_dev_index.json"><b>ESP32</b></a>, 
-                                <a href="https://drazzy.com/package_drazzy.com_index.json"><b>ATtiny45</b></a>. Después de descargar las librerías correspondientes, es necesario agregarlas al Arduino IDE. Para 
+                                <a href="https://drazzy.com/package_drazzy.com_index.json"><b>ATtiny85</b></a>. Después de descargar las librerías correspondientes, es necesario agregarlas al Arduino IDE. Para 
                                 hacer esto, debes dirigirte a <b>File > Preferences > Additional Boards Manager URLs</b> y pegar 
                                 los enlaces que se proporcionaron anteriormente.
                             </p>
@@ -186,19 +186,55 @@
                             </p>
                             <center><img class="img-fluid rounded"  width="600px" src="img/cargar codigo esp32.png" alt="..." /></center>
 
-                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ATtiny45</b></h2>
-                            <center><img class="img-fluid rounded"  width="400px" src="img/attiny45-c4x-removebg-preview.png" alt="..." /></center>
+                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ATtiny85</b></h2>
+                            <center><img class="img-fluid rounded"  width="200px" src="img/attiny45-c4x-removebg-preview.png" alt="..." /></center>
                             <p class="fs-6 mb-4">
-                                A diferencia de los otros dos microcontroladores, el ATtiny45 no puede programarse de manera 
+                                A diferencia de los otros dos microcontroladores, el ATtiny85 no puede programarse de manera 
                                 directa conectándolo con un cable USB. En este caso, es necesario utilizar un Arduino como 
                                 programador. Para hacer esto, primero debemos configurar el Arduino como un <b>ISP</b> 
                                 (In-System Programmer).
                             </p>
                             <p class="fs-6 mb-4">
                                 Para configurar el Arduino como ISP debemos de ir a <b>File/Examples/ArduinoISP/ArduinoISP</b>
-                                como se muestra en la siguiente imagen
+                                como se muestra en la siguiente imagen.
                             </p>
                             <center><img class="img-fluid rounded"  width="600px" src="img/p1 arduino isp.png" alt="..." /></center>
+
+                            <p class="fs-6 mb-4">
+                                Después de abrir el ejemplo <b>ArduinoISP</b>, seleccionamos la placa Arduino UNO en el menú de 
+                                herramientas. Luego, nos dirigimos a <b>Tools/Programmer/Arduino as ISP</b> para configurar el 
+                                Arduino como programador. Una vez hecho esto, abrimos una nueva ventana en el Arduino IDE para 
+                                comenzar a escribir el código principal que se cargará en el ATtiny85.
+                            </p>
+                            <center><img class="img-fluid rounded"  width="600px" src="img/p2 arduino isp.png" alt="..." /></center>
+
+                            <p class="fs-6 mb-4">
+                                Una vez que hemos cargado el código ArduinoISP en el Arduino UNO y lo hemos configurado como 
+                                programador, el siguiente paso es realizar la conexión física entre el Arduino 
+                                UNO y el ATtiny85. Esta conexión es importante para poder subir el código desde el Arduino 
+                                al ATtiny85.
+                            </p>
+                            <center><img class="img-fluid rounded"  width="600px" src="img/ATtiny85 conexion.png" alt="..." /></center>
+
+                            <p class="fs-6 mb-4">
+                                Una vez que hemos abierto una nueva ventana en el Arduino IDE, debemos configurar correctamente 
+                                las opciones para programar el ATtiny85. Estas son las configuraciones que tenemos que tener:
+                                <ul>
+                                    <li><b>Placa: </b>ATtiny25/45/85</li>
+                                    <li><b>Reloj interno: </b>1MHz</li>
+                                    <li><b>Procesador: </b>ATtiny85</li>
+                                    <li><b>Programador: </b>Arduino as ISP</li>
+                                </ul>
+                            </p>
+                            <center><img class="img-fluid rounded"  width="600px" src="img/p3 arduino isp.png" alt="..." /></center>
+
+                            <p class="fs-6 mb-4">
+                                Para subir el código al ATtiny85, a diferencia del ESP32 y el Arduino UNO, no utilizamos el botón 
+                                estándar de Upload. En su lugar, tenemos  tenemos que ir a Sketch/Upload Using Programmer para 
+                                poder subir el código de manera correcta ya que si no, no podremos programar el microcontrolador.
+                            </p>
+                            <center><img class="img-fluid rounded"  width="600px" src="img/p4 arduino isp.png" alt="..." /></center>
+
 
                             <p id="simulacion">
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5">Simulación</h1>
