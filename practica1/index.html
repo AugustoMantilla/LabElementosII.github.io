@@ -236,7 +236,22 @@
                             <center><img class="img-fluid rounded"  width="400px" src="img/p4 arduino isp.png" alt="..." /></center>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Comparación entre microcontroladores</b></h1>
-                            <table style="width:100%" border="1">
+                            <style>
+                                .mi-tabla {
+                                  width: 100%;
+                                  border-collapse: collapse; /* Colapsa los bordes para que no haya espacio entre celdas */
+                                }
+                                .mi-tabla th, .mi-tabla td {
+                                  border: 1px solid black; /* Bordes de 1px sólidos y negros para todas las celdas */
+                                  padding: 8px; /* Espaciado interno para las celdas */
+                                  text-align: left; /* Alineación del texto */
+                                }
+                                .mi-tabla th {
+                                  background-color: #f2f2f2; /* Color de fondo para las celdas de la cabecera */
+                                }
+                              </style>
+                              
+                              <table class="mi-tabla">
                                 <tr>
                                   <th>Company</th>
                                   <th>Contact</th>
@@ -253,7 +268,6 @@
                                   <td>Mexico</td>
                                 </tr>
                               </table>
-
 
                             <p id="simulacion">
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5">Simulación</h1>
