@@ -2084,7 +2084,7 @@ progress {
   margin-bottom: 1rem;
   color: #212529;
   vertical-align: top;
-  border-color: #dee2e6;
+  border-color: #000000;
 }
 .table > :not(caption) > * > * {
   padding: 0.5rem 0.5rem;
@@ -2196,7 +2196,7 @@ progress {
   --bs-table-hover-bg: #ece1be;
   --bs-table-hover-color: #000;
   color: #000;
-  border-color: #e6dbb9;
+  border-color: #000000;
 }
 
 .table-danger {
@@ -2208,7 +2208,7 @@ progress {
   --bs-table-hover-bg: #e5c7ca;
   --bs-table-hover-color: #000;
   color: #000;
-  border-color: #dfc2c4;
+  border-color: #000000;
 }
 
 .table-light {
