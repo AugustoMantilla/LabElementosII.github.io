@@ -14,15 +14,49 @@
         <link href="css/styles.css" rel="stylesheet" />
 
         <style>
-            /* Opcional: Añade un poco de estilo para que el código se vea mejor */
-            code {
-                background-color: #f4f4f4;
-                padding: 10px;
-                display: block;
-                font-family: monospace;
-                white-space: pre-wrap;
-                border: 1px solid #ddd;
+            /* Estilo para el contenedor del código */
+            .code-container {
+                background-color: #2d2d2d; /* Fondo oscuro */
+                color: #f8f8f2; /* Color del texto */
+                padding: 15px;
                 border-radius: 5px;
+                font-family: 'Courier New', monospace;
+                font-size: 14px;
+                line-height: 1.5;
+                display: inline-block; /* Ajusta el ancho al contenido */
+                white-space: pre-wrap; /* Mantiene los saltos de línea y espacios */
+                margin: 0 auto; /* Centra el contenedor */
+            }
+    
+            /* Estilo para las palabras clave */
+            .keyword {
+                color: #f92672; /* Color para palabras clave */
+            }
+    
+            /* Estilo para los comentarios */
+            .comment {
+                color: #75715e; /* Color para comentarios */
+                font-style: italic;
+            }
+    
+            /* Estilo para los números */
+            .number {
+                color: #ae81ff; /* Color para números */
+            }
+    
+            /* Estilo para las funciones */
+            .function {
+                color: #66d9ef; /* Color para funciones */
+            }
+    
+            /* Centrar el contenedor en la página */
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh; /* Ocupa toda la altura de la pantalla */
+                margin: 0;
+                background-color: #f0f0f0; /* Fondo de la página */
             }
         </style>
     </head>
@@ -365,17 +399,23 @@
 
                             <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>Arduino UNO</b></h2>
                             <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Encendido</b></h3>
-                            <center><pre><code>
-                                void setup() {
-                                    // put your setup code here, to run once:
-                                    pinMode(13, OUTPUT);
-                                }
-                                
-                                void loop() {
-                                    // put your main code here, to run repeatedly:
-                                    digitalWrite(13, HIGH);
-                                }
-                            </code></pre></center>
+                            
+                            <div class="code-container">
+                                <code>
+                                    void setup() {
+                                        // put your setup code here, to run once:
+                                        pinMode(13, OUTPUT);
+                                      
+                                      }
+                                      
+                                      void loop() {
+                                        // put your main code here, to run repeatedly:
+                                        digitalWrite(13, HIGH);
+                                      
+                                      }
+                                      
+                                </code>
+                            </div>
 
 
                             <p id="simulacion">
