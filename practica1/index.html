@@ -15,7 +15,7 @@
 
         <style>
             pre {
-                background-color: #efe4e4;
+                background-color: #fefcfc;
                 color: #373e43;
                 padding: 15px;
                 border-radius: 5px;
@@ -366,6 +366,13 @@
                             <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>Arduino UNO</b></h2>
                             <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Encendido</b></h3>
 
+                            <p class="fs-6 mb-4">
+                                Para este primer, se configura el pin 13 como salida y lo mantiene encendido de forma permanente. 
+                                En la función setup(), que se ejecuta una sola vez al inicio, se establece el modo del pin 13 
+                                como salida (OUTPUT). Luego, en la función loop(), que se ejecuta repetidamente, en donde se establece 
+                                el pin 13 en estado alto (HIGH), lo que hace que el LED conectado permanezca encendido sin interrupción. 
+                            </p>
+                            
                             <pre>
                                 void setup() {
                                     // put your setup code here, to run once:
@@ -393,12 +400,6 @@
                                 </video>
                                 </figure>
                             </center>
-                            <p class="fs-6 mb-4">
-                                Para este primer, se configura el pin 13 como salida y lo mantiene encendido de forma permanente. 
-                                En la función setup(), que se ejecuta una sola vez al inicio, se establece el modo del pin 13 
-                                como salida (OUTPUT). Luego, en la función loop(), que se ejecuta repetidamente, en donde se establece 
-                                el pin 13 en estado alto (HIGH), lo que hace que el LED conectado permanezca encendido sin interrupción. 
-                            </p>
 
                             <p id="simulacion">
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5">Simulación</h1>
