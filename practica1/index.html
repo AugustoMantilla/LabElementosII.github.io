@@ -725,6 +725,185 @@
                             <p class="fs-6 mb-4">Descargar codigo: <a href="files/ESP32_BOTONIF_CODE.ino">ESP32 Botón con if</a></p>
 
 
+                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ATtiny85</b></h2>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Encendido de un led</b></h3>
+
+                            <p class="fs-6 mb-4">
+                                Para este primer, se configura el pin 3 como salida y lo mantiene encendido de forma permanente. 
+                                En la función setup(), que se ejecuta una sola vez al inicio, se establece el pin 3 
+                                como salida. Luego, en la función loop(), que se ejecuta repetidamente, en donde se establece 
+                                el pin 3 en estado alto, lo que hace que el LED conectado permanezca encendido sin interrupción. 
+                            </p>
+
+                            <pre>
+                                void setup() {
+                                    // put your setup code here, to run once:
+                                    pinMode(3, OUTPUT);
+                                  
+                                  }
+                                  
+                                  void loop() {
+                                    // put your main code here, to run repeatedly:
+                                    digitalWrite(3, HIGH);
+                                  
+                                  }
+                            </pre>
+
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
+                            <iframe
+                                src="https://wokwi.com/projects/423430291157363713"
+                                width="100%"
+                                height="600px"
+                                style="border: none;">
+                            </iframe>
+                            
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
+                            <center><figure class="mb-4" align="center">
+                                <video width="50%" height="300" controls>
+                                    <source src="video/ATTINY85_ENCENDIDO_CODE.mp4" type="video/mp4">
+                                </video>
+                                </figure>
+                            </center>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ATiny85_ENCENDIDO_CODE.ino">ATtiny85 Encendido</a></p>
+                            
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Parpadeo de un led</b></h3>
+
+                            <p class="fs-6 mb-4">
+                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
+                                pin 3 como salida. Luego, en la función loop(), que se ejecuta repetidamente, se establece el 
+                                pin 3 en estado alto, lo que hace que el LED conectado se encienda. Posteriormente, se 
+                                hace una pausa de 500 milisegundos. Después de la pausa, el pin 3 se pone en estado bajo, 
+                                apagando el LED, seguido de otra pausa de 500 milisegundos.
+                            </p>
+
+                            <pre>
+                                void setup() {
+                                    // put your setup code here, to run once:
+                                  pinMode(3, OUTPUT);
+                                  }
+                                  
+                                  void loop() {
+                                    // put your main code here, to run repeatedly:
+                                   digitalWrite(3, HIGH); 
+                                  delay(500);
+                                  digitalWrite(3, LOW);
+                                  delay(500);
+                                  }
+                                  
+                            </pre>
+
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
+                            <iframe
+                                src="https://wokwi.com/projects/423430586377700353"
+                                width="100%"
+                                height="600px"
+                                style="border: none;">
+                            </iframe>
+                            
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
+                            <center><figure class="mb-4" align="center">
+                                <video width="50%" height="300" controls>
+                                    <source src="video/ATTINY85_PARPADEO_CODE.mp4" type="video/mp4">
+                                </video>
+                                </figure>
+                            </center>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ATiny85_PARPADEO_CODE.ino">ATtiny85 Parpadeo</a></p>
+
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Control del estado del LED mediante un botón</b></h3>
+
+                            <p class="fs-6 mb-4">
+                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
+                                pin 25 como salida y el pin 12 como entrada.Luego, en la función loop(), que se ejecuta 
+                                repetidamente, se lee el estado del botón conectado al pin 12. Posteriormente, el estado del 
+                                LED en el pin 25 se actualiza, de modo que si el botón está presionado, el LED se enciende, y 
+                                si el botón no está presionado, el LED se apaga.
+                            </p>
+
+                            <pre>
+                                int led=13;
+                                int boton=12;
+                                bool status_boton=0;
+                                void setup() {
+                                    // put your setup code here, to run once:
+                                    pinMode(led, OUTPUT);  
+                                    pinMode(boton, INPUT);
+                                }
+
+                                void loop() {
+                                    // put your main code here, to run repeatedly:
+                                    status_boton=digitalRead(boton);
+                                    digitalWrite(led,status_boton);
+                                }
+                            </pre>
+
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
+                            <iframe
+                                src="https://wokwi.com/projects/423428224722017281"
+                                width="100%"
+                                height="600px"
+                                style="border: none;">
+                            </iframe>
+                            
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
+                            <center><figure class="mb-4" align="center">
+                                <video width="50%" height="300" controls>
+                                    <source src="video/ESP32_BOTON_VIDEO.mp4" type="video/mp4">
+                                </video>
+                                </figure>
+                            </center>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ESP32_BOTON_CODE.ino">ESP32 Botón</a></p>
+
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Control del estado del LED mediante un botón utilizando condicionales if/else.</b></h3>
+
+                            <p class="fs-6 mb-4">
+                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
+                                pin 25 como salida y el pin 12 como entrada. Luego, en la función loop(), que se ejecuta 
+                                repetidamente, se lee el estado del botón conectado al pin 12. Posteriormente, el estado del 
+                                LED en el pin 25 se actualiza, de modo que si el botón está presionado, el LED se enciende, y 
+                                si el botón no está presionado, el LED se apaga. En esencia este código hace la misma función
+                                que el código pasado solo que ahora usamos condiconales para leer el estado del botón. 
+                            </p>
+
+                            <pre>
+                                int led=25;
+                                int boton=12;
+                                bool status_boton=LOW;
+                                void setup() {
+                                    // put your setup code here, to run once:
+                                    pinMode(led, OUTPUT);  
+                                    pinMode(boton, INPUT);
+                                }
+
+                                void loop() {
+                                    // put your main code here, to run repeatedly:
+                                    status_boton=digitalRead(boton);
+                                    if (status_boton==HIGH){
+                                        digitalWrite(led, HIGH);
+                                      }
+                                      else{
+                                        digitalWrite(led,LOW);
+                                      }
+                                }
+                            </pre>
+
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
+                            <iframe
+                                src="https://wokwi.com/projects/423428797351520257"
+                                width="100%"
+                                height="600px"
+                                style="border: none;">
+                            </iframe>
+                            
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
+                            <center><figure class="mb-4" align="center">
+                                <video width="50%" height="300" controls>
+                                    <source src="video/ESP32_BOTONIF_VIDEO.mp4" type="video/mp4">
+                                </video>
+                                </figure>
+                            </center>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ESP32_BOTONIF_CODE.ino">ESP32 Botón con if</a></p>
+
+
                             <p id="simulacion">
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5">Simulación</h1>
                             <p class="fs-6 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe. The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe. The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
