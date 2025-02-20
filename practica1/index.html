@@ -364,13 +364,13 @@
                             </div>
 
                             <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>Arduino UNO</b></h2>
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Encendido</b></h3>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Encendido de un led</b></h3>
 
                             <p class="fs-6 mb-4">
                                 Para este primer, se configura el pin 13 como salida y lo mantiene encendido de forma permanente. 
-                                En la función setup(), que se ejecuta una sola vez al inicio, se establece el modo del pin 13 
-                                como salida (OUTPUT). Luego, en la función loop(), que se ejecuta repetidamente, en donde se establece 
-                                el pin 13 en estado alto (HIGH), lo que hace que el LED conectado permanezca encendido sin interrupción. 
+                                En la función setup(), que se ejecuta una sola vez al inicio, se establece el pin 13 
+                                como salida. Luego, en la función loop(), que se ejecuta repetidamente, en donde se establece 
+                                el pin 13 en estado alto, lo que hace que el LED conectado permanezca encendido sin interrupción. 
                             </p>
 
                             <pre>
@@ -389,7 +389,7 @@
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
                             <iframe
-                                src="https://wokwi.com/projects/423201965644533761"
+                                src="https://wokwi.com/projects/423273261797666817"
                                 width="100%"
                                 height="600px"
                                 style="border: none;">
@@ -397,8 +397,93 @@
                             
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
                             <center><figure class="mb-4" align="center">
-                                <video width="50%"  controls>
+                                <video width="50%" height="300" controls>
                                     <source src="video/Encendido arduino.mp4" type="video/mp4">
+                                </video>
+                                </figure>
+                            </center>
+                            
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Parpadeo de un led</b></h3>
+
+                            <p class="fs-6 mb-4">
+                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
+                                pin 13 como salida. Luego, en la función loop(), que se ejecuta repetidamente, se establece el 
+                                pin 13 en estado alto, lo que hace que el LED conectado se encienda. Posteriormente, se 
+                                hace una pausa de 500 milisegundos. Después de la pausa, el pin 13 se pone en estado bajo, 
+                                apagando el LED, seguido de otra pausa de 500 milisegundos.
+                            </p>
+
+                            <pre>
+                                void setup() {
+                                    // put your setup code here, to run once:
+                                  pinMode(13, OUTPUT);
+                                  }
+                                  
+                                  void loop() {
+                                    // put your main code here, to run repeatedly:
+                                   digitalWrite(13, HIGH); 
+                                  delay(500);
+                                  digitalWrite(13, LOW);
+                                  delay(500);
+                                  }
+                                  
+                            </pre>
+
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
+                            <iframe
+                                src="https://wokwi.com/projects/423416713657150465"
+                                width="100%"
+                                height="600px"
+                                style="border: none;">
+                            </iframe>
+                            
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
+                            <center><figure class="mb-4" align="center">
+                                <video width="50%" height="300" controls>
+                                    <source src="video/" type="video/mp4">
+                                </video>
+                                </figure>
+                            </center>
+                        
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Control del estado del LED mediante un botón</b></h3>
+
+                            <p class="fs-6 mb-4">
+                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
+                                pin 13 como salida y el pin 10 como entrada.Luego, en la función loop(), que se ejecuta 
+                                repetidamente, se lee el estado del botón conectado al pin 10. Posteriormente, el estado del 
+                                LED en el pin 13 se actualiza, de modo que si el botón está presionado, el LED se enciende, y 
+                                si el botón no está presionado, el LED se apaga.
+                            </p>
+
+                            <pre>
+                                int led=13;
+                                int boton=10;
+                                bool status_boton=0;
+                                void setup() {
+                                    // put your setup code here, to run once:
+                                    pinMode(led, OUTPUT);  
+                                    pinMode(boton, INPUT);
+                                }
+
+                                void loop() {
+                                    // put your main code here, to run repeatedly:
+                                    status_boton=digitalRead(boton);
+                                    digitalWrite(led,status_boton);
+                                }
+                            </pre>
+
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
+                            <iframe
+                                src="https://wokwi.com/projects/423423712333737985"
+                                width="100%"
+                                height="600px"
+                                style="border: none;">
+                            </iframe>
+                            
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
+                            <center><figure class="mb-4" align="center">
+                                <video width="50%" height="300" controls>
+                                    <source src="video/Arduino boton.mp4" type="video/mp4">
                                 </video>
                                 </figure>
                             </center>
