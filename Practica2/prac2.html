@@ -189,37 +189,40 @@
                                 </video>
                                 </figure>
                             </center>
+
                             <p class="fs-6 mb-4">Descargar codigo: <a href="files/Velocidad_Arduino.ino">Arduino Velocidad de procesamiento</a></p>
                             
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Parpadeo de un led</b></h3>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria Flash</b></h3>
 
                             <p class="fs-6 mb-4">
-                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
-                                pin 13 como salida. Luego, en la función loop(), que se ejecuta repetidamente, se establece el 
-                                pin 13 en estado alto, lo que hace que el LED conectado se encienda. Posteriormente, se 
-                                hace una pausa de 500 milisegundos. Después de la pausa, el pin 13 se pone en estado bajo, 
-                                apagando el LED, seguido de otra pausa de 500 milisegundos.
+                                En la función setup(), que se ejecuta una sola vez al inicio, se inicia la comunicación serial 
+                                a 9600 baudios y se calcula el tamaño de la memoria flash sumando 1 a FLASHEND, que representa 
+                                la última dirección de memoria disponible. Luego, el resultado se convierte a kilobytes 
+                                dividiendo entre 1024.0 y se imprime en el monitor serial.
                             </p>
 
                             <pre>
                                 void setup() {
-                                    // put your setup code here, to run once:
-                                  pinMode(13, OUTPUT);
-                                  }
-                                  
-                                  void loop() {
-                                    // put your main code here, to run repeatedly:
-                                   digitalWrite(13, HIGH); 
-                                  delay(500);
-                                  digitalWrite(13, LOW);
-                                  delay(500);
-                                  }
+                                // Iniciar la comunicación serial
+                                Serial.begin(9600);
+
+                                // Calcular el tamaño de la memoria flash en bytes
+                                uint16_t flashSize = FLASHEND + 1; // FLASHEND es la última dirección de memoria flash
+
+                                // También puedes mostrarlo en kilobytes
+                                Serial.print("Tamaño de la memoria flash: ");
+                                Serial.print(flashSize / 1024.0);
+                                Serial.println(" KB");
+                                }
+
+                                void loop() {
+                                }
                                   
                             </pre>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
                             <iframe
-                                src="https://wokwi.com/projects/423416713657150465"
+                                src="https://wokwi.com/projects/424701313363341313"
                                 width="100%"
                                 height="600px"
                                 style="border: none;">
@@ -228,13 +231,13 @@
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
                             <center><figure class="mb-4" align="center">
                                 <video width="50%" height="300" controls>
-                                    <source src="video/Arduino parpadeo.mp4" type="video/mp4">
+                                    <source src="video/memoria_flash_arduino.mp4 type="video/mp4">
                                 </video>
                                 </figure>
                             </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Parpadeo.ino">Arduino Parpadeo</a></p>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Memoria_FLASH.ino">Arduino Memoria Flash</a></p>
 
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Control del estado del LED mediante un botón</b></h3>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria RAM</b></h3>
 
                             <p class="fs-6 mb-4">
                                 Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
