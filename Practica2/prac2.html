@@ -240,33 +240,36 @@
                             <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria RAM</b></h3>
 
                             <p class="fs-6 mb-4">
-                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
-                                pin 13 como salida y el pin 10 como entrada.Luego, en la función loop(), que se ejecuta 
-                                repetidamente, se lee el estado del botón conectado al pin 10. Posteriormente, el estado del 
-                                LED en el pin 13 se actualiza, de modo que si el botón está presionado, el LED se enciende, y 
-                                si el botón no está presionado, el LED se apaga.
+                                En la función setup(), que se ejecuta una sola vez al inicio, se inicia la comunicación serial a 
+                                9600 baudios. Luego, en la función loop(), que se ejecuta 
+                                repetidamente, se llama a la función freeRam(), que calcula la memoria RAM disponible utilizando 
+                                las variables del sistema __heap_start y __brkval, y el resultado se imprime en el monitor 
+                                serial cada 3 segundos.
                             </p>
 
                             <pre>
-                                int led=13;
-                                int boton=10;
-                                bool status_boton=0;
-                                void setup() {
-                                    // put your setup code here, to run once:
-                                    pinMode(led, OUTPUT);  
-                                    pinMode(boton, INPUT);
-                                }
-
-                                void loop() {
-                                    // put your main code here, to run repeatedly:
-                                    status_boton=digitalRead(boton);
-                                    digitalWrite(led,status_boton);
-                                }
+                                void setup(){
+                                    Serial.begin(9600);
+                                    Serial.println("Comienza...");
+                                  }
+                                  
+                                  void loop(){
+                                    Serial.println(freeRam());
+                                    
+                                    delay(3000);
+                                  }
+                                  
+                                  int freeRam () 
+                                  {
+                                    extern int __heap_start, *__brkval; 
+                                    int v; 
+                                    return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
+                                  }
                             </pre>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
                             <iframe
-                                src="https://wokwi.com/projects/423423712333737985"
+                                src="https://wokwi.com/projects/424701586945245185"
                                 width="100%"
                                 height="600px"
                                 style="border: none;">
@@ -275,13 +278,13 @@
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
                             <center><figure class="mb-4" align="center">
                                 <video width="50%" height="300" controls>
-                                    <source src="video/Arduino boton.mp4" type="video/mp4">
+                                    <source src="video/memoria_RAM_arduino.mp4" type="video/mp4">
                                 </video>
                                 </figure>
                             </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Arduino_boton.ino">Arduino Botón</a></p>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Memoria_RAM_Arduino.ino">Arduino Memoria RAM</a></p>
 
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Control del estado del LED mediante un botón utilizando condicionales if/else.</b></h3>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Comunicacion UART-SERIAL</b></h3>
 
                             <p class="fs-6 mb-4">
                                 Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
