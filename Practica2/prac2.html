@@ -287,40 +287,31 @@
                             <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Comunicacion UART-SERIAL</b></h3>
 
                             <p class="fs-6 mb-4">
-                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
-                                pin 13 como salida y el pin 10 como entrada.Luego, en la función loop(), que se ejecuta 
-                                repetidamente, se lee el estado del botón conectado al pin 10. Posteriormente, el estado del 
-                                LED en el pin 13 se actualiza, de modo que si el botón está presionado, el LED se enciende, y 
-                                si el botón no está presionado, el LED se apaga. En esencia este código hace la misma función
-                                que el código pasado solo que ahora usamos condiconales para leer el estado del botón. 
+                                En la función setup(), que se ejecuta una sola vez al inicio, se inicializa la comunicación 
+                                serial a 9600 baudios y se imprime el mensaje "Monitor Serial Iniciado. Escribe algo:". Luego, 
+                                en la función loop(), que se ejecuta repetidamente, se verifica si hay datos disponibles en el 
+                                buffer serial, y si es así, se leen hasta encontrar un salto de línea (\n).
                             </p>
 
                             <pre>
-                                int led=13;
-                                int boton=10;
-                                bool status_boton=LOW;
                                 void setup() {
-                                    // put your setup code here, to run once:
-                                    pinMode(led, OUTPUT);  
-                                    pinMode(boton, INPUT);
+                                    Serial.begin(9600); // Inicializa el Monitor Serial a 9600 baudios
+                                    Serial.println("Monitor Serial Iniciado. Escribe algo:");
                                 }
-
+                                
                                 void loop() {
-                                    // put your main code here, to run repeatedly:
-                                    status_boton=digitalRead(boton);
-                                    if (status_boton==HIGH){
-                                        digitalWrite(led, HIGH);
-                                      }
-                                      else{
-                                        digitalWrite(led,LOW);
-                                    
-                                      }
+                                    if (Serial.available() > 0) { // Verifica si hay datos en el buffer serial
+                                        String entrada = Serial.readStringUntil('\n'); // Lee el dato ingresado
+                                        Serial.print("Recibido: ");
+                                        Serial.println(entrada); // Muestra el dato en el monitor serial
+                                    }
                                 }
+                                
                             </pre>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
                             <iframe
-                                src="https://wokwi.com/projects/423424050260464641"
+                                src="https://wokwi.com/projects/424702321394163713"
                                 width="100%"
                                 height="600px"
                                 style="border: none;">
@@ -329,11 +320,11 @@
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
                             <center><figure class="mb-4" align="center">
                                 <video width="50%" height="300" controls>
-                                    <source src="video/Arduino boton if.mp4" type="video/mp4">
+                                    <source src="video/UART_ARDUINO.mp4" type="video/mp4">
                                 </video>
                                 </figure>
                             </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Arduino_boton_if.ino">Arduino Botón con if</a></p>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/UART.ino">Arduino UART</a></p>
 
 
 
