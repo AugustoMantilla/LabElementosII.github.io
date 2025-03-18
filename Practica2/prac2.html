@@ -433,33 +433,33 @@
                             <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria RAM</b></h3>
 
                             <p class="fs-6 mb-4">
-                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
-                                pin 25 como salida y el pin 12 como entrada.Luego, en la función loop(), que se ejecuta 
-                                repetidamente, se lee el estado del botón conectado al pin 12. Posteriormente, el estado del 
-                                LED en el pin 25 se actualiza, de modo que si el botón está presionado, el LED se enciende, y 
-                                si el botón no está presionado, el LED se apaga.
+                                En la función setup(), que se ejecuta una sola vez al inicio, se inicializa la comunicación serial a 
+                                115200 baudios y se obtiene la cantidad de memoria RAM libre utilizando ESP.getFreeHeap(). Luego, este 
+                                valor se imprime en el monitor serial en bytes.
                             </p>
 
                             <pre>
-                                int led=13;
-                                int boton=12;
-                                bool status_boton=0;
                                 void setup() {
-                                    // put your setup code here, to run once:
-                                    pinMode(led, OUTPUT);  
-                                    pinMode(boton, INPUT);
-                                }
-
-                                void loop() {
-                                    // put your main code here, to run repeatedly:
-                                    status_boton=digitalRead(boton);
-                                    digitalWrite(led,status_boton);
-                                }
+                                    // Iniciar la comunicación serial
+                                    Serial.begin(115200);
+                                  
+                                    // Calcular la memoria RAM disponible
+                                    int freeRAM = ESP.getFreeHeap();
+                                  
+                                    // Mostrar la memoria RAM disponible en el monitor serial
+                                    Serial.print("Memoria RAM: ");
+                                    Serial.print(freeRAM);
+                                    Serial.println(" bytes");
+                                  }
+                                  
+                                  void loop() {
+                                    // No es necesario hacer nada en el loop para esta tarea
+                                  }
                             </pre>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
                             <iframe
-                                src="https://wokwi.com/projects/423428224722017281"
+                                src="https://wokwi.com/projects/424718476182612993"
                                 width="100%"
                                 height="600px"
                                 style="border: none;">
@@ -468,13 +468,13 @@
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
                             <center><figure class="mb-4" align="center">
                                 <video width="50%" height="300" controls>
-                                    <source src="video/ESP32_BOTON_VIDEO.mp4" type="video/mp4">
+                                    <source src="video/memoria_ram_ESP32.mp4" type="video/mp4">
                                 </video>
                                 </figure>
                             </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ESP32_BOTON_CODE.ino">ESP32 Botón</a></p>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Memoria_RAM.ino">ESP32 Memoria RAM</a></p>
 
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Control del estado del LED mediante un botón utilizando condicionales if/else.</b></h3>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Comunicacion UART-SERIAL</b></h3>
 
                             <p class="fs-6 mb-4">
                                 Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
