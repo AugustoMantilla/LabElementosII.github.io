@@ -568,155 +568,83 @@
                             </center>
                             <p class="fs-6 mb-4">Descargar codigo: <a href="files/AT85_Vel_Proc.ino">ATtiny85 Velocidad de Procesamiento</a></p>
                             
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Parpadeo de un led</b></h3>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria Flash</b></h3>
 
                             <p class="fs-6 mb-4">
-                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
-                                pin 3 como salida. Luego, en la función loop(), que se ejecuta repetidamente, se establece el 
-                                pin 3 en estado alto, lo que hace que el LED conectado se encienda. Posteriormente, se 
-                                hace una pausa de 500 milisegundos. Después de la pausa, el pin 3 se pone en estado bajo, 
-                                apagando el LED, seguido de otra pausa de 500 milisegundos.
+                                El ATtiny85 cuenta con 8 KB (8192 bytes) de memoria Flash de tipo ISP. Esto significa que se 
+                                puede programar y reprogramar sin necesidad de extraer el microcontrolador del circuito, 
+                                utilizando interfaces como SPI o un programador externo.
                             </p>
 
-                            <pre>
-                                void setup() {
-                                    // put your setup code here, to run once:
-                                  pinMode(3, OUTPUT);
-                                  }
-                                  
-                                  void loop() {
-                                    // put your main code here, to run repeatedly:
-                                   digitalWrite(3, HIGH); 
-                                  delay(500);
-                                  digitalWrite(3, LOW);
-                                  delay(500);
-                                  }
-                                  
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/423430586377700353"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/ATTINY85_PARPADEO_CODE.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ATiny85_PARPADEO_CODE.ino">ATtiny85 Parpadeo</a></p>
-
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Control del estado del LED mediante un botón</b></h3>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria RAM</b></h3>
 
                             <p class="fs-6 mb-4">
-                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
-                                pin 3 como salida y el pin 4 como entrada.Luego, en la función loop(), que se ejecuta 
-                                repetidamente, se lee el estado del botón conectado al pin 4. Posteriormente, el estado del 
-                                LED en el pin 3 se actualiza, de modo que si el botón está presionado, el LED se enciende, y 
-                                si el botón no está presionado, el LED se apaga.
+                                El ATtiny85 cuenta con 512 bytes de memoria SRAM, que se usa para almacenar variables en tiempo 
+                                de ejecución, la pila de ejecución y datos temporales. Está organizada en un espacio de 
+                                direcciones donde los primeros 32 bytes son registros de propósito general, seguidos de 64 bytes 
+                                reservados para periféricos, dejando el resto disponible para el usuario.
                             </p>
-
-                            <pre>
-                                int led=3;
-                                int boton=4;
-                                bool status_boton=0;
-                                void setup() {
-                                    // put your setup code here, to run once:
-                                    pinMode(led, OUTPUT);  
-                                    pinMode(boton, INPUT);
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Comparación finnal de los microcontroladores</b></h1>
+                            <style>
+                                .mi-tabla {
+                                  width: 100%;
+                                  border-collapse: collapse; /* Colapsa los bordes para que no haya espacio entre celdas */
                                 }
-
-                                void loop() {
-                                    // put your main code here, to run repeatedly:
-                                    status_boton=digitalRead(boton);
-                                    digitalWrite(led,status_boton);
+                                .mi-tabla th, .mi-tabla td {
+                                  border: 1px solid black; /* Bordes de 1px sólidos y negros para todas las celdas */
+                                  padding: 8px; /* Espaciado interno para las celdas */
+                                  text-align: left; /* Alineación del texto */
                                 }
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/423431221664905217"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/ATTINY85_BOTON_CODE.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ATiny85_BOTON_CODE/">ATtiny85 Botón</a></p>
-
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Control del estado del LED mediante un botón utilizando condicionales if/else.</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                Para este código, en la función setup(), que se ejecuta una sola vez al inicio, se establece el 
-                                pin 3 como salida y el pin 4 como entrada. Luego, en la función loop(), que se ejecuta 
-                                repetidamente, se lee el estado del botón conectado al pin 4. Posteriormente, el estado del 
-                                LED en el pin 3 se actualiza, de modo que si el botón está presionado, el LED se enciende, y 
-                                si el botón no está presionado, el LED se apaga. En esencia este código hace la misma función
-                                que el código pasado solo que ahora usamos condiconales para leer el estado del botón. 
-                            </p>
-
-                            <pre>
-                                int led=3;
-                                int boton=4;
-                                bool status_boton=LOW;
-                                void setup() {
-                                    // put your setup code here, to run once:
-                                    pinMode(led, OUTPUT);  
-                                    pinMode(boton, INPUT);
+                                .mi-tabla th {
+                                  background-color: #f2f2f2; /* Color de fondo para las celdas de la cabecera */
                                 }
-
-                                void loop() {
-                                    // put your main code here, to run repeatedly:
-                                    status_boton=digitalRead(boton);
-                                    if (status_boton==HIGH){
-                                        digitalWrite(led, HIGH);
-                                      }
-                                      else{
-                                        digitalWrite(led,LOW);
-                                      }
-                                }
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/423431619697078273"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/ATTINY85_BOTONIF_CODE.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ATiny85_BOTONIF_CODE.ino">ATtiny85 Botón con if</a></p>
-
+                            </style>
+                              
+                            <table class="mi-tabla">
+                                <tr>
+                                  <th>Característica</th>
+                                  <th>ESP32-C6</th>
+                                  <th>Arduino (ATmega328P)</th>
+                                  <th>ATtiny85</th>
+                                </tr>
+                                <tr>
+                                  <td>Velocidad de procesamiento</td>
+                                  <td>160 MHz </td>
+                                  <td>16 MHz</td>
+                                  <td>1 MHz</td>
+                                </tr>
+                                <tr>
+                                  <td>Memoria Flash</td>
+                                  <td>4 MB</td>
+                                  <td>32 KB</td>
+                                  <td>8 KB</td>
+                                </tr>
+                                <tr>
+                                    <td>Memoria RAM</td>
+                                    <td>512 KB</td>
+                                    <td>2 KB</td>
+                                    <td>512 Bytes</td>
+                                </tr>
+                                <tr>
+                                    <td>Puertos USART (UART)</td>
+                                    <td>2 hardware</td>
+                                    <td>1 hardware</td>
+                                    <td>No cuenta con uno propio</td>
+                                </tr>
+                                <tr>
+                                    <td>Multitareas</td>
+                                    <td>Si, ya que cuenta con 2 nucleos</td>
+                                    <td>No</td>
+                                    <td>No</td>
+                                </tr>
+                            </table>
+                            <div>
                         <p id="conclusiones">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5">- Conclusiones -</h2>
                         <p class="fs-6 mb-4">
-                            Para concluir, la comparación entre el Arduino UNO, el ESP32 y el ATtiny85 nos ha permitido analizar sus 
-                            diferencias por ejemplo, en el Arduino UNO y el ESP32 pueden programarse directamente mediante un cable USB, 
-                            mientras que el ATtiny85 requiere un programador externo.
-                        </p>
-                        
-                        <p class="fs-6 mb-4">
-                            En cuanto a las características técnicas, el ESP32 destacó por su mayor capacidad de procesamiento 
-                            y conectividad, el Arduino UNO por su facilidad de uso, y el ATtiny85 por su tamaño compacto y bajo 
-                            consumo energético.
+                            A lo largo de esta práctica se pudo ver que el ESP32 es el más potente de los tres microcontroladores, 
+                            destacando por su alta velocidad de procesamiento, mayor memoria tanto flash como RAM, 
+                            su capacidad para multitareas.
                         </p>
 
                         <p id="referencias">
