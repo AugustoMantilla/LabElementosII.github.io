@@ -514,32 +514,46 @@
 
 
                             <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ATtiny85</b></h2>
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Encendido de un led</b></h3>
+                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Velocidad de procesamiento</b></h3>
 
                             <p class="fs-6 mb-4">
-                                Para este primer, se configura el pin 3 como salida y lo mantiene encendido de forma permanente. 
-                                En la función setup(), que se ejecuta una sola vez al inicio, se establece el pin 3 
-                                como salida. Luego, en la función loop(), que se ejecuta repetidamente, en donde se establece 
-                                el pin 3 en estado alto, lo que hace que el LED conectado permanezca encendido sin interrupción. 
+                                En la función setup(), se configura el pin del buzzer como salida y se guarda el tiempo inicial 
+                                en microsegundos. En la función loop(), se ejecuta un bucle con una instrucción para simular una 
+                                operación intensiva, tras lo cual se calcula el tiempo total transcurrido restando el tiempo 
+                                inicial del tiempo final obtenido. Luego, el buzzer emite un sonido de 1000 Hz durante 20000 ms 
+                                para indicar que la tarea ha finalizado.
                             </p>
 
                             <pre>
+                                const int buzzerPin = 4;
+                                unsigned long tiempoInicio;
+                                unsigned long tiempoFinal;
+                                unsigned long tiempoTotal;
+                                
                                 void setup() {
-                                    // put your setup code here, to run once:
-                                    pinMode(3, OUTPUT);
-                                  
+                                  pinMode(buzzerPin, OUTPUT);
+                                  tiempoInicio = micros();
+                                }
+                                
+                                void loop() {
+                                  for (volatile long i = 0; i < 1000000; i++) {
+                                    __asm__ __volatile__ ("nop");
                                   }
-                                  
-                                  void loop() {
-                                    // put your main code here, to run repeatedly:
-                                    digitalWrite(3, HIGH);
-                                  
-                                  }
+                                
+                                  tiempoFinal = micros();
+                                  tiempoTotal = tiempoFinal - tiempoInicio;
+                                
+                                  tone(buzzerPin, 1000, 20000);
+                                  delay(500);
+                                
+                                  tiempoInicio = micros();
+                                }
+                                
                             </pre>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
                             <iframe
-                                src="https://wokwi.com/projects/423430291157363713"
+                                src="https://wokwi.com/projects/426790149026068481"
                                 width="100%"
                                 height="600px"
                                 style="border: none;">
@@ -548,11 +562,11 @@
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
                             <center><figure class="mb-4" align="center">
                                 <video width="50%" height="300" controls>
-                                    <source src="video/ATTINY85_ENCENDIDO_CODE.mp4" type="video/mp4">
+                                    <source src="video/vel_attiny.mp4" type="video/mp4">
                                 </video>
                                 </figure>
                             </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/ATiny85_ENCENDIDO_CODE.ino">ATtiny85 Encendido</a></p>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/AT85_Vel_Proc.ino">ATtiny85 Velocidad de Procesamiento</a></p>
                             
                             <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Parpadeo de un led</b></h3>
 
