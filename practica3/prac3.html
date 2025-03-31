@@ -99,7 +99,7 @@
                             La comunicación serial es un protocolo estandarizado que permite el intercambio de información en 
                             forma de bits entre dos o más dispositivos. Existen 2 formas de realizar esta comunicación.
                         </p>
-                        <h2><b>Conexión vía USB</b></h2>
+                        <h2 class="fw-bolder mb-4 mt-5 fs-5" ><b>Conexión vía USB</b></h2>
                         <p class="fs-6 mb-4">
                             Es la conexión más sencilla y lo único que necesitarás es el cable usb de tus dispositivos. Muchos 
                             microcontroladores usan la comunicación serial, pero las computadoras modernas utilizan USB. 
@@ -107,7 +107,7 @@
                         </p>
                         <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/pc1.png" alt="..." /></figure></center>
 
-                        <h2><b>Conexión vía USB</b></h2>
+                        <h2 class="fw-bolder mb-4 mt-5 fs-5" ><b>Conexión vía pines RX/TX</b></h2>
                         <p class="fs-6 mb-4">
                             La comunicación serial mediante pines es un método utilizado para la transmisión de datos entre 
                             dispositivos electrónicos, como microcontroladores, sensores y módulos de comunicación. Utiliza dos 
@@ -142,59 +142,84 @@
                             respuesta después de 100 iteraciones.
                         </p>
                             
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Velocidad de procesamiento</b></h1>
-                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>Arduino UNO</b></h2>
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Instalación de Python</b></h1>
                             <p class="fs-6 mb-4">
-                                Este código mide cuántas veces se ejecuta el ciclo loop() en un segundo. 
-                                En la función setup(), que se ejecuta una sola vez al inicio, se inicia la comunicación serial 
-                                y se guarda el tiempo inicial con millis(). Luego, en la función loop(), que se ejecuta 
-                                repetidamente, se incrementa un contador en cada iteración y se actualiza el tiempo actual. 
-                                Si ha pasado un segundo, se imprime en el monitor serial la cantidad de bucles ejecutados en ese 
-                                tiempo.
+                                Para esta práctica, es necesario descargar <b>Python</b> porque se utilizará para establecer la 
+                                comunicación serial entre la PC y el microcontrolador mediante la librería <pre>pyserial</pre>, 
+                                la cual permite enviar y recibir datos a través del puerto USB. Además, Python nos permite 
+                                medir con precisión el tiempo de ida y vuelta de los datos, realizar múltiples iteraciones y 
+                                calcular el tiempo promedio de respuesta, algo que no se puede hacer directamente desde el IDE de 
+                                Arduino.
                             </p>
 
                             <pre>
-                                unsigned long startTime;
-                                unsigned long endTime;
-                                unsigned long loopCount = 0;
+                                import serial
+                                import time
 
-                                void setup() {
-                                    Serial.begin(9600);  // Inicia la comunicación serial
-                                    startTime = millis(); // Guarda el tiempo inicial
-                                }
+                                micro = serial.Serial("COM15", 2000000, timeout=0.1)
+                                time.sleep(2)
 
-                                void loop() {
-                                    loopCount++; // Incrementa el contador de bucles
-                                    endTime = millis(); // Guarda el tiempo actual
+                                tiempos = []  
 
-                                    if (endTime - startTime >= 1000) {
-                                        Serial.print("Bucles por segundo: ");
-                                        Serial.println(loopCount);
+                                for i in range(100):
+                                micro.reset_input_buffer() 
+                                inicio = time.perf_counter()  
 
-                                        loopCount = 0; // Reinicia el contador de bucles
-                                        startTime = millis(); // Reinicia el tiempo inicial
-                                    }
-                                }
+                                micro.write(b"A")
+                                respuesta = micro.readline().decode().strip()  
+                                if respuesta == "A": 
+                                fin = time.perf_counter()  
+                                rtt = (fin - inicio) * 1000 
+                                tiempos.append(rtt)
+
+                                if tiempos:
+                                promedio = sum(tiempos) / len(tiempos)
+                                print(f"{promedio:.4f}")
+
+                                micro.close()
                             </pre>
 
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/424656937511284737"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/vel_procesamiento_arduino.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Explicación</b></h1>
+                            <p class="fs-6 mb-4">
+                                Se importan las librerías serial para la comunicación serie y time para manejar tiempos y retardos.
+                            </p>
 
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Velocidad_Arduino.ino">Arduino Velocidad de procesamiento</a></p>
+                            <p class="fs-6 mb-4">
+                                Se crea una instancia de serial.Serial para comunicarse por medio del  puerto "COMX" a una 
+                                velocidad de X baudios, con un tiempo de espera de 0.1 segundos.
+                            </p>
+
+                            <p class="fs-6 mb-4">
+                                Se espera 2 segundos para asegurar que la conexión esté establecida.
+                            </p>
+
+                            <p class="fs-6 mb-4">
+                                Se crea una lista para guardar los tiempos de ida y vuelta
+                            </p>
+
+                            <p class="fs-6 mb-4">
+                                Se crea un buble de 100 interaciones en donde:
+                            </p>
+                            <p class="fs-6 mb-4">
+                                <ol>
+                                    <li>Se limpia el buffer de entrada del puerto serie. </li>
+                                    <li>Se registra el tiempo de inicio.</li>
+                                    <li>Se envía un byte "A" al dispositivo.</li>
+                                    <li>Se lee la respuesta del dispositivo.</li>
+                                    <li>Si la respuesta es "A", se registra el tiempo de fin.</li>
+                                    <li>Se calcula el tiempo de ida y vuelta en milisegundos y se añade a la lista tiempos.</li>
+                                </ol>
+                            </p>
                             
+                            <p class="fs-6 mb-4">
+                                Cuando se termina de recopilar los tiempos, se calcula el promedio del tiempo de ida y vuelta 
+                                y se imprime con cuatro decimales.
+                            </p>
+
+                            <p class="fs-6 mb-4">
+                                Por último, se cierra la conexión del puerto serie.
+                            </p>
+
                             <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria Flash</b></h3>
 
                             <p class="fs-6 mb-4">
