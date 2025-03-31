@@ -142,10 +142,10 @@
                             respuesta después de 100 iteraciones.
                         </p>
                             
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Instalación de Python</b></h1>
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Código de Python</b></h1>
                             <p class="fs-6 mb-4">
-                                Para esta práctica, es necesario descargar <b>Python</b> porque se utilizará para establecer la 
-                                comunicación serial entre la PC y el microcontrolador mediante la librería <pre>pyserial</pre>, 
+                                Para esta práctica, es necesario descargar <b><a href="https://www.python.org/">Python</a></b> porque se utilizará para establecer la 
+                                comunicación serial entre la PC y el microcontrolador mediante la librería pyserial, 
                                 la cual permite enviar y recibir datos a través del puerto USB. Además, Python nos permite 
                                 medir con precisión el tiempo de ida y vuelta de los datos, realizar múltiples iteraciones y 
                                 calcular el tiempo promedio de respuesta, algo que no se puede hacer directamente desde el IDE de 
@@ -220,398 +220,53 @@
                                 Por último, se cierra la conexión del puerto serie.
                             </p>
 
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria Flash</b></h3>
-
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Código de Arduino</b></h1>
                             <p class="fs-6 mb-4">
-                                En la función setup(), que se ejecuta una sola vez al inicio, se inicia la comunicación serial 
-                                a 9600 baudios y se calcula el tamaño de la memoria flash sumando 1 a FLASHEND, que representa 
-                                la última dirección de memoria disponible. Luego, el resultado se convierte a kilobytes 
-                                dividiendo entre 1024.0 y se imprime en el monitor serial.
+                                Se utiliza un código en Arduino IDE porque permite recibir y reenviar datos a la computadora de 
+                                manera inmediata, lo que es útil para probar la comunicación serial, depurar programas y 
+                                asegurarse de que los datos se transmiten correctamente. 
                             </p>
 
                             <pre>
                                 void setup() {
-                                // Iniciar la comunicación serial
-                                Serial.begin(9600);
-
-                                // Calcular el tamaño de la memoria flash en bytes
-                                uint16_t flashSize = FLASHEND + 1; // FLASHEND es la última dirección de memoria flash
-
-                                // También puedes mostrarlo en kilobytes
-                                Serial.print("Tamaño de la memoria flash: ");
-                                Serial.print(flashSize / 1024.0);
-                                Serial.println(" KB");
-                                }
-
-                                void loop() {
-                                }
-                                  
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/424701313363341313"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/memoria_flash_arduino.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Memoria_FLASH.ino">Arduino Memoria Flash</a></p>
-
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria RAM</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                En la función setup(), que se ejecuta una sola vez al inicio, se inicia la comunicación serial a 
-                                9600 baudios. Luego, en la función loop(), que se ejecuta 
-                                repetidamente, se llama a la función freeRam(), que calcula la memoria RAM disponible utilizando 
-                                las variables del sistema __heap_start y __brkval, y el resultado se imprime en el monitor 
-                                serial cada 3 segundos.
-                            </p>
-
-                            <pre>
-                                void setup(){
-                                    Serial.begin(9600);
-                                    Serial.println("Comienza...");
+                                    Serial.begin(2000000);
                                   }
                                   
-                                  void loop(){
-                                    Serial.println(freeRam());
-                                    
-                                    delay(3000);
-                                  }
-                                  
-                                  int freeRam () 
-                                  {
-                                    extern int __heap_start, *__brkval; 
-                                    int v; 
-                                    return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
-                                  }
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/424701586945245185"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/memoria_RAM_arduino.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Memoria_RAM_Arduino.ino">Arduino Memoria RAM</a></p>
-
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Comunicacion UART-SERIAL</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                En la función setup(), que se ejecuta una sola vez al inicio, se inicializa la comunicación 
-                                serial a 9600 baudios y se imprime el mensaje "Monitor Serial Iniciado. Escribe algo:". Luego, 
-                                en la función loop(), que se ejecuta repetidamente, se verifica si hay datos disponibles en el 
-                                buffer serial, y si es así, se leen hasta encontrar un salto de línea (\n).
-                            </p>
-
-                            <pre>
-                                void setup() {
-                                    Serial.begin(9600); // Inicializa el Monitor Serial a 9600 baudios
-                                    Serial.println("Monitor Serial Iniciado. Escribe algo:");
-                                }
-                                
-                                void loop() {
-                                    if (Serial.available() > 0) { // Verifica si hay datos en el buffer serial
-                                        String entrada = Serial.readStringUntil('\n'); // Lee el dato ingresado
-                                        Serial.print("Recibido: ");
-                                        Serial.println(entrada); // Muestra el dato en el monitor serial
+                                  void loop() {
+                                    if (Serial.available() > 0) { 
+                                      char r = Serial.read();  
+                                      Serial.println(r);  
                                     }
-                                }
-                                
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/424702321394163713"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/UART_ARDUINO.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/UART.ino">Arduino UART</a></p>
-
-
-
-                            
-
-                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ESP32</b></h2>
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Velocidad de procesamiento</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                En la función setup(), que se ejecuta una sola vez al inicio, se inicializa la comunicación 
-                                serial a 115200 baudios y se guarda el tiempo inicial en microsegundos con micros(). Luego, se 
-                                ejecuta un bucle que realiza un millón de operaciones simples de multiplicación, almacenando 
-                                el resultado en una variable volatile. Al finalizar, 
-                                se guarda el tiempo final y se calcula el tiempo total transcurrido. 
-                                Finalmente, se determina la cantidad de operaciones por segundo dividiendo el número de 
-                                operaciones entre el tiempo en segundos y se muestra el resultado en el monitor serial. 
-                            </p>
-
-                            <pre>
-                                unsigned long tiempoInicio, tiempoFin;
-                                const int operaciones = 1000000; // Número de operaciones a medir
-
-                                void setup() {
-                                    Serial.begin(115200); // Inicializa el Monitor Serial a 115200 baudios
-                                    tiempoInicio = micros(); // Guarda el tiempo inicial en microsegundos
-
-                                    for (int i = 0; i < operaciones; i++) {
-                                        volatile int x = i * 2; // Operación simple para evaluar velocidad
-                                    }
-
-                                    tiempoFin = micros(); // Guarda el tiempo final en microsegundos
-                                    unsigned long tiempoTotal = tiempoFin - tiempoInicio;
-
-                                    float operacionesPorSegundo = (operaciones / (tiempoTotal / 1000000.0));
-                                    Serial.print("Operaciones por segundo: ");
-                                    Serial.println(operacionesPorSegundo);
-                                }
-
-                                void loop() {
-
-                                }
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/424715078722659329"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/vel_procesamiento_esp32.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/vel_procesamiento_esp32.ino">ESP32 Velocidad de procesamiento</a></p>
-                            
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria Flash</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                En la función setup(), que se ejecuta una sola vez al inicio, se inicializa la comunicación 
-                                serial a 115200 baudios y se obtiene el tamaño de la memoria flash utilizando 
-                                ESP.getFlashChipSize(). Luego, se imprime el tamaño en bytes.
-                            </p>
-
-                            <pre>
-                                void setup() {
-                                    // Iniciar la comunicación serial
-                                    Serial.begin(115200);
-                                    
-                                    // Obtener el tamaño de la memoria flash
-                                    uint32_t flashSize = ESP.getFlashChipSize();
-                                  
-                                    // Mostrar el tamaño de la memoria flash en bytes
-                                    Serial.print("Tamaño de la memoria flash: ");
-                                    Serial.print(flashSize);
-                                    Serial.println(" bytes");
-                                  }
-                                  
-                                  void loop() {
-                                    // No es necesario hacer nada en el loop
-                                  }
-                                  
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/424715513770573825"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/memoria_flash_ESP32.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Memoria_FLASH_ESP32.ino">ESP32 Memoria Flash</a></p>
-
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria RAM</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                En la función setup(), que se ejecuta una sola vez al inicio, se inicializa la comunicación serial a 
-                                115200 baudios y se obtiene la cantidad de memoria RAM libre utilizando ESP.getFreeHeap(). Luego, este 
-                                valor se imprime en el monitor serial en bytes.
-                            </p>
-
-                            <pre>
-                                void setup() {
-                                    // Iniciar la comunicación serial
-                                    Serial.begin(115200);
-                                  
-                                    // Calcular la memoria RAM disponible
-                                    int freeRAM = ESP.getFreeHeap();
-                                  
-                                    // Mostrar la memoria RAM disponible en el monitor serial
-                                    Serial.print("Memoria RAM: ");
-                                    Serial.print(freeRAM);
-                                    Serial.println(" bytes");
-                                  }
-                                  
-                                  void loop() {
-                                    // No es necesario hacer nada en el loop para esta tarea
                                   }
                             </pre>
 
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/424718476182612993"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Explicación</b></h1>
+                            <p class="fs-6 mb-4">
+                                Para el codigo en Arduino IDE se establece una comunicación serial a 2,000,000 baudios en el 
+                                setup(), lo que permite una transmisión de datos más rápida. En el loop(), verifica si hay datos 
+                                disponibles en el puerto serial; si los hay, lee un carácter y lo reenvía de vuelta a la 
+                                computadora, funcionando así como un eco de cualquier dato recibido.
+                            </p>
+
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Funcionamiento de ambos códigos</b></h1>
+                            <p class="fs-6 mb-4">
+                                Para implementar ambos códigos, es importante tener nuestro microcontrolador conectado a la 
+                                computadora mediante un cable USB-UART. Una vez conectado, cargamos el código en Arduino IDE y 
+                                esperamos a que la carga finalice. Es fundamental cerrar el Monitor Serial de Arduino IDE, ya 
+                                que, de lo contrario, no podremos realizar la operación correctamente en Python. Una vez que 
+                                el código se haya subido, ejecutamos el código en Python, esperamos a que termine de realizar 
+                                las operaciones y, al finalizar, obtendremos el promedio del tiempo de transmisión.
+                            </p>
+
+                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>Arduino UNO</b></h2>
                             <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/memoria_ram_ESP32.mp4" type="video/mp4">
+                                <video width="70%" height="500" controls>
+                                    <source src="video/vel_procesamiento_arduino.mp4" type="video/mp4">
                                 </video>
                                 </figure>
                             </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/Memoria_RAM.ino">ESP32 Memoria RAM</a></p>
-
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Comunicacion UART-SERIAL</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                En la función setup(), que se ejecuta una sola vez al inicio, se inicializa la comunicación 
-                                serial a 115200 baudios y se imprime el mensaje "Monitor Serial Iniciado". Luego, en la función 
-                                loop(), que se ejecuta de forma continua, se imprime el mensaje "Hola, ESP32 está funcionando" 
-                                en el monitor serial cada segundo.
-                            </p>
-
-                            <pre>
-                                void setup() {
-                                    Serial.begin(115200); // Inicia la comunicación serial a 115200 baudios
-                                    Serial.println("Monitor Serial Iniciado");
-                                  }
-                                  
-                                  void loop() {
-                                    Serial.println("Hola, ESP32 está funcionando");
-                                    delay(1000); // Espera 1 segundo
-                                  }                                  
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/426703347950707713"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/UART ESP32.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/UART_ESP32.ino">ESP32 UART</a></p>
 
 
-                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ATtiny85</b></h2>
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Velocidad de procesamiento</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                En la función setup(), se configura el pin del buzzer como salida y se guarda el tiempo inicial 
-                                en microsegundos. En la función loop(), se ejecuta un bucle con una instrucción para simular una 
-                                operación intensiva, tras lo cual se calcula el tiempo total transcurrido restando el tiempo 
-                                inicial del tiempo final obtenido. Luego, el buzzer emite un sonido de 1000 Hz durante 20000 ms 
-                                para indicar que la tarea ha finalizado.
-                            </p>
-
-                            <pre>
-                                const int buzzerPin = 4;
-                                unsigned long tiempoInicio;
-                                unsigned long tiempoFinal;
-                                unsigned long tiempoTotal;
-                                
-                                void setup() {
-                                  pinMode(buzzerPin, OUTPUT);
-                                  tiempoInicio = micros();
-                                }
-                                
-                                void loop() {
-                                  for (volatile long i = 0; i < 1000000; i++) {
-                                    __asm__ __volatile__ ("nop");
-                                  }
-                                
-                                  tiempoFinal = micros();
-                                  tiempoTotal = tiempoFinal - tiempoInicio;
-                                
-                                  tone(buzzerPin, 1000, 20000);
-                                  delay(500);
-                                
-                                  tiempoInicio = micros();
-                                }
-                                
-                            </pre>
-
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Simulación</b></h1>
-                            <iframe
-                                src="https://wokwi.com/projects/426790149026068481"
-                                width="100%"
-                                height="600px"
-                                style="border: none;">
-                            </iframe>
-                            
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Video</b></h1>
-                            <center><figure class="mb-4" align="center">
-                                <video width="50%" height="300" controls>
-                                    <source src="video/vel_attiny.mp4" type="video/mp4">
-                                </video>
-                                </figure>
-                            </center>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/AT85_Vel_Proc.ino">ATtiny85 Velocidad de Procesamiento</a></p>
-                            
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria Flash</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                El ATtiny85 cuenta con 8 KB (8192 bytes) de memoria Flash de tipo ISP. Esto significa que se 
-                                puede programar y reprogramar sin necesidad de extraer el microcontrolador del circuito, 
-                                utilizando interfaces como SPI o un programador externo.
-                            </p>
-
-                            <h3 class="fw-bolder mb-4 mt-5 fs-5"><b>Memoria RAM</b></h3>
-
-                            <p class="fs-6 mb-4">
-                                El ATtiny85 cuenta con 512 bytes de memoria SRAM, que se usa para almacenar variables en tiempo 
-                                de ejecución, la pila de ejecución y datos temporales. Está organizada en un espacio de 
-                                direcciones donde los primeros 32 bytes son registros de propósito general, seguidos de 64 bytes 
-                                reservados para periféricos, dejando el resto disponible para el usuario.
-                            </p>
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Comparación finnal de los microcontroladores</b></h1>
                             <style>
                                 .mi-tabla {
