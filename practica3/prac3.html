@@ -96,22 +96,31 @@
                         <p id="intro">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5" >- Introducción -</h2>
                         <p class="fs-6 mb-4">
-                            Las diferentes capacidades de los microcontroladores varían dependiendo de diversos factores. 
-                            Un ejemplo es su finalidad, es decir, si se requiere que el microcontrolador ejecute tareas sencillas 
-                            o complejas. A lo largo de esta práctica, analizaremos las distintas capacidades del ATtiny85, 
-                            Arduino UNO y ESP32.
+                            La comunicación serial es un protocolo estandarizado que permite el intercambio de información en 
+                            forma de bits entre dos o más dispositivos. Existen 2 formas de realizar esta comunicación.
                         </p>
+                        <h2><b>Conexión vía USB</b></h2>
                         <p class="fs-6 mb-4">
-                            Las características en las que nos enfocaremos para la evaluación son las siguientes:
+                            Es la conexión más sencilla y lo único que necesitarás es el cable usb de tus dispositivos. Muchos 
+                            microcontroladores usan la comunicación serial, pero las computadoras modernas utilizan USB. 
+                            Para conectar ambos, se usa un adaptador USB-UART.
                         </p>
+                        <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/pc1.png" alt="..." /></figure></center>
+
+                        <h2><b>Conexión vía USB</b></h2>
+                        <p class="fs-6 mb-4">
+                            La comunicación serial mediante pines es un método utilizado para la transmisión de datos entre 
+                            dispositivos electrónicos, como microcontroladores, sensores y módulos de comunicación. Utiliza dos 
+                            pines principales:
+                        </p>
+
                         <p class="fs-6 mb-4">
                             <ul>
-                                <li><b>Velocidad de procesamiento</b></li>
-                                <li><b>Memoria: </b>Flash y RAM</li>
-                                <li><b>Comunicación UART-SERIAL</b></li>
-                                <li><b>Capacidad de multitarea (hilos)</b></li>
+                                <li><b>TX (Transmisión):</b> Envía datos.</li>
+                                <li><b>RX (Recepción):</b> Recibe datos.</li>
                             </ul>
                         </p>
+                        <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/t725.png" alt="..." /></figure></center>
 
                         <p id="materiales">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5" >- Materiales -</h2>
@@ -119,23 +128,18 @@
                             <ul>
                                 <li>ESP32: 1</li>
                                 <li>Arduino UNO: 1</li>
-                                <li>ATtiny85: 1</li>
-                                <li>Diodo LED: 2</li>
-                                <li>Resistencias 300Ω: 2</li>
-                                <li>Cable Jumper: 16</li>
                             </ul>
                         </p>
                         <p id="desarrollo">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5">- Desarrollo -</h2>
                         <p class="fs-6 mb-4">
-                            Para comenzar con esta práctica, es necesario tener conocimientos básicos sobre los tres 
-                            microcontroladores que vamos a utilizar. Si deseas conocer más sobre ellos, <a href="https://augustomantilla.github.io/LabElementosII.github.io/practica1/">haz clic aquí</a>, 
-                            donde encontrarás información sobre sus características, cómo programarlos y otros detalles.
+                            En esta práctica, se evaluará el tiempo de ida y vuelta de una comunicación serial entre un 
+                            microcontrolador y una computadora. Para ello, se enviará un dato desde la PC hacia el microcontrolador, 
+                            el cual responderá con el mismo dato, y se medirá el tiempo transcurrido en la PC.
                         </p>
                         <p class="fs-6 mb-4">
-                            Teniendo esto claro, comenzaremos analizando la velocidad de procesamiento, luego evaluaremos la 
-                            memoria Flash y RAM, posteriormente revisaremos la comunicación UART-SERIAL, y finalmente, 
-                            exploraremos la capacidad de multitarea (hilos).
+                            El objetivo es analizar la latencia en la comunicación serial y obtener un promedio del tiempo de 
+                            respuesta después de 100 iteraciones.
                         </p>
                             
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Velocidad de procesamiento</b></h1>
