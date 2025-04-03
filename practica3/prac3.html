@@ -220,6 +220,8 @@
                                 Por último, se cierra la conexión del puerto serie.
                             </p>
 
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/codigopython.py">Código pyhton</a></p>
+
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Código de Arduino</b></h1>
                             <p class="fs-6 mb-4">
                                 Se utiliza un código en Arduino IDE porque permite recibir y reenviar datos a la computadora de 
@@ -239,10 +241,11 @@
                                     }
                                   }
                             </pre>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/arduino_computadora.ino">Código arduino</a></p>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Explicación</b></h1>
                             <p class="fs-6 mb-4">
-                                Para el codigo en Arduino IDE se establece una comunicación serial a 2,000,000 baudios en el 
+                                Para el codigo en Arduino IDE se establece una comunicación serial a <b>x</b> baudios en el 
                                 setup(), lo que permite una transmisión de datos más rápida. En el loop(), verifica si hay datos 
                                 disponibles en el puerto serial; si los hay, lee un carácter y lo reenvía de vuelta a la 
                                 computadora, funcionando así como un eco de cualquier dato recibido.
@@ -261,88 +264,42 @@
                             <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>Arduino UNO</b></h2>
                             <center><figure class="mb-4" align="center">
                                 <video width="70%" height="500" controls>
-                                    <source src="video/vel_procesamiento_arduino.mp4" type="video/mp4">
+                                    <source src="video/arduino uno bien.mp4" type="video/mp4">
+                                </video>
+                                </figure>
+                            </center>
+
+                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ESP32</b></h2>
+                            <center><figure class="mb-4" align="center">
+                                <video width="70%" height="500" controls>
+                                    <source src="video/esp32 bien.mp4" type="video/mp4">
                                 </video>
                                 </figure>
                             </center>
 
 
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Comparación finnal de los microcontroladores</b></h1>
-                            <style>
-                                .mi-tabla {
-                                  width: 100%;
-                                  border-collapse: collapse; /* Colapsa los bordes para que no haya espacio entre celdas */
-                                }
-                                .mi-tabla th, .mi-tabla td {
-                                  border: 1px solid black; /* Bordes de 1px sólidos y negros para todas las celdas */
-                                  padding: 8px; /* Espaciado interno para las celdas */
-                                  text-align: left; /* Alineación del texto */
-                                }
-                                .mi-tabla th {
-                                  background-color: #f2f2f2; /* Color de fondo para las celdas de la cabecera */
-                                }
-                            </style>
-                              
-                            <table class="mi-tabla">
-                                <tr>
-                                  <th>Característica</th>
-                                  <th>ESP32</th>
-                                  <th>Arduino UNO</th>
-                                  <th>ATtiny85</th>
-                                </tr>
-                                <tr>
-                                  <td>Velocidad de procesamiento</td>
-                                  <td>160 MHz </td>
-                                  <td>16 MHz</td>
-                                  <td>1 MHz</td>
-                                </tr>
-                                <tr>
-                                  <td>Memoria Flash</td>
-                                  <td>4 MB</td>
-                                  <td>32 KB</td>
-                                  <td>8 KB</td>
-                                </tr>
-                                <tr>
-                                    <td>Memoria RAM</td>
-                                    <td>512 KB</td>
-                                    <td>2 KB</td>
-                                    <td>512 Bytes</td>
-                                </tr>
-                                <tr>
-                                    <td>Puertos USART (UART)</td>
-                                    <td>2</td>
-                                    <td>1</td>
-                                    <td>No cuenta con uno propio</td>
-                                </tr>
-                                <tr>
-                                    <td>Multitareas</td>
-                                    <td>Si, ya que cuenta con 2 nucleos</td>
-                                    <td>No</td>
-                                    <td>No</td>
-                                </tr>
-                            </table>
-                            <div>
+                            
+                        <div>
                         <p id="conclusiones">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5">- Conclusiones -</h2>
                         <p class="fs-6 mb-4">
-                            A lo largo de esta práctica se pudo ver que el ESP32 es el más potente de los tres microcontroladores, 
-                            destacando por su alta velocidad de procesamiento, mayor memoria tanto flash como RAM, 
-                            su capacidad para multitareas.
+                            La comunicación serial es un método eficiente para transmitir datos a gran velocidad. Se realizaron 
+                            pruebas en dos microcontroladores, obteniendo resultados muy buenos, ya que el tiempo promedio de ida 
+                            y vuelta fue bastante rápido. La única desventaja es que la velocidad de transmisión depende del 
+                            microcontrolador, ya que algunos no cuentan con una velocidad serial muy alta y otros ni siquiera 
+                            disponen de un puerto serial como en ATtiny85.
                         </p>
 
                         <p id="referencias">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5">- Referencias -</h2>
                         <p class="fs-6 mb-4">Santos, S., & Santos, S. (2024, 24 octubre). ESP32 Pinout Reference: Which GPIO pins should you use? | Random Nerd Tutorials. Random Nerd Tutorials. <a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/">https://randomnerdtutorials.com/esp32-pinout-reference-gpios/</a> </p>
                         <p class="fs-6 mb-4">The Full Arduino Uno Pinout Guide [including diagram]. (2018, 18 noviembre). circuito.io Blog. <a href="https://www.circuito.io/blog/arduino-uno-pinout/"> https://www.circuito.io/blog/arduino-uno-pinout/</a></p>
-                        <p class="fs-6 mb-4">Homemade hardware. (s. f.). <a href="http://homemadehardware.com/guides/programming-an-attiny85/"> http://homemadehardware.com/guides/programming-an-attiny85/</a></p>
                         
                         <p id="descargables">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5">- Descargables -</h2>
                         <p class="fs-6 mb-4">Arduino UNO Datasheet: <a href="files/A000066.PDF">Arduino UNO.pdf</a> </p>
                         <p class="fs-6 mb-4">ESP32 Datasheet: <a href="files/esp32-wroom-32_datasheet_en.pdf">ESP32.pdf</a> </p>
                         <p class="fs-6 mb-4">Attiny85 Datasheet: <a href="files/ATTINY25.PDF">Attiny85.pdf</a> </p>
-                        <p class="fs-6 mb-4">Descargar carpeta con todos los códigos: <a href="files/Codigos.zip">códigos.zip</a> </p>
-
                 </div>
             </section>
 
