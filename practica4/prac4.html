@@ -221,49 +221,105 @@
                                     main()
                             </pre>
                             <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/primeraparte.png" alt="..." /></figure></center>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/pracmqtt.py">Enviar datos a MQTT</a></p>
 
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Explicación</b></h1>
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Segunda parte</b></h1>
                             <p class="fs-6 mb-4">
-                                Se importan las librerías serial para la comunicación serie y time para manejar tiempos y retardos.
-                            </p>
-
-                            <p class="fs-6 mb-4">
-                                Se crea una instancia de serial.Serial para comunicarse por medio del  puerto "COMX" a una 
-                                velocidad de X baudios, con un tiempo de espera de 0.1 segundos.
-                            </p>
-
-                            <p class="fs-6 mb-4">
-                                Se espera 2 segundos para asegurar que la conexión esté establecida.
+                                El ESP32 que se conecta al broker público test.mosquitto.org y mide la latencia de 5 mensajes 
+                                enviados al tópico "elementos2/augusto/". Al recibir la respuesta, se calcula la latencia con la 
+                                función millis(). Los resultados se imprimen por el puerto serial y al final se 
+                                calcula el promedio y la desviación estándar de los tiempos obtenidos.
                             </p>
 
-                            <p class="fs-6 mb-4">
-                                Se crea una lista para guardar los tiempos de ida y vuelta
-                            </p>
+                            <pre>
+                                #include <WiFi.h>           
+                                #include <PubSubClient.h>
 
-                            <p class="fs-6 mb-4">
-                                Se crea un buble de 100 interaciones en donde:
-                            </p>
-                            <p class="fs-6 mb-4">
-                                <ol>
-                                    <li>Se limpia el buffer de entrada del puerto serie. </li>
-                                    <li>Se registra el tiempo de inicio.</li>
-                                    <li>Se envía un byte "A" al dispositivo.</li>
-                                    <li>Se lee la respuesta del dispositivo.</li>
-                                    <li>Si la respuesta es "A", se registra el tiempo de fin.</li>
-                                    <li>Se calcula el tiempo de ida y vuelta en milisegundos y se añade a la lista tiempos.</li>
-                                </ol>
-                            </p>
-                            
-                            <p class="fs-6 mb-4">
-                                Cuando se termina de recopilar los tiempos, se calcula el promedio del tiempo de ida y vuelta 
-                                y se imprime con cuatro decimales.
-                            </p>
+                                const char* ssid = "Guty";       
+                                const char* password = "123456789";
+                                const char* mqtt_broker = "test.mosquitto.org"; // Broker público
 
-                            <p class="fs-6 mb-4">
-                                Por último, se cierra la conexión del puerto serie.
-                            </p>
+                                const char* topic = "elementos2/augusto/";
+                                const int numMessages = 50;
+                                unsigned long sendTimes[numMessages];
+                                float latencies[numMessages];
 
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/codigopython.py">Código pyhton</a></p>
+                                WiFiClient espClient;
+                                PubSubClient client(espClient);
+
+                                void callback(char* topic, byte* payload, unsigned int length) {
+                                    unsigned long receivedTime = millis();
+                                    
+                                    String message = "";
+                                    for (int i = 0; i < length; i++) {
+                                        message += (char)payload[i];
+                                    }
+
+                                    int index = message.substring(4).toInt();
+                                    if (index >= 0 && index < numMessages) {
+                                        latencies[index] = (receivedTime - sendTimes[index]) / 1000.0;
+                                        Serial.printf("Mensaje %d recibido. Latencia: %.6f s\n", index, latencies[index]);
+                                    } else {
+                                        Serial.println("Mensaje fuera de rango recibido.");
+                                    }
+                                }
+
+
+                                void setup_wifi() {
+                                    WiFi.begin(ssid, password);
+                                    while (WiFi.status() != WL_CONNECTED) {
+                                        delay(500);
+                                    }
+                                }
+
+                                void setup() {
+                                    Serial.begin(115200);
+                                    setup_wifi();
+                                    client.setServer(mqtt_broker, 1883);
+                                    client.setCallback(callback);
+                                    client.connect("ArduinoClient");
+                                    client.subscribe(topic);
+                                }
+
+                                void loop() {
+                                    for (int i = 0; i < numMessages; i++) {
+                                        String message = "msg_" + String(i);
+                                        sendTimes[i] = millis();
+                                        client.publish(topic, message.c_str());
+
+                                        unsigned long startWait = millis();
+                                        while (millis() - startWait < 200) {  // Esperar 200ms procesando MQTT
+                                            client.loop();
+                                        }
+                                    }
+
+                                    delay(5000);  // Esperar a que lleguen respuestas
+
+                                    // Calcular latencia promedio
+                                    float sum = 0, sumSq = 0;
+                                    int receivedCount = 0;
+                                    for (int i = 0; i < numMessages; i++) {
+                                        if (latencies[i] > 0) {
+                                            sum += latencies[i];
+                                            sumSq += latencies[i] * latencies[i];
+                                            receivedCount++;
+                                        }
+                                    }
+
+                                    if (receivedCount > 0) {
+                                        float mean = sum / receivedCount;
+                                        float stddev = sqrt((sumSq / receivedCount) - (mean * mean));
+                                        Serial.printf("Latencia promedio: %.6f s\n", mean);
+                                        Serial.printf("Desviación estándar: %.6f s\n", stddev);
+                                    } else {
+                                        Serial.println("No se recibieron respuestas.");
+                                    }
+
+                                    while (true);
+                                }
+                            </pre>
+                            <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/parte2mqtt.png" alt="..." /></figure></center>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/mqtt_esp32.ino">Enviar datos a MQTT con ESP32</a></p>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Código de Arduino</b></h1>
                             <p class="fs-6 mb-4">
