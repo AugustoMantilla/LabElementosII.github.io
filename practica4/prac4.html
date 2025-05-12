@@ -95,38 +95,51 @@
                         <p id="intro">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5" >- Introducción -</h2>
                         <p class="fs-6 mb-4">
-                            La comunicación serial es un protocolo estandarizado que permite el intercambio de información en 
-                            forma de bits entre dos o más dispositivos. Existen 2 formas de realizar esta comunicación.
+                            MQTT es un protocolo de mensajería ligero basado en el modelo publicador/suscriptor, diseñado para 
+                            comunicaciones eficientes en redes con recursos limitados o anchos de banda reducidos.
                         </p>
-                        <h2 class="fw-bolder mb-4 mt-5 fs-5" ><b>Conexión vía USB</b></h2>
                         <p class="fs-6 mb-4">
-                            Es la conexión más sencilla y lo único que necesitarás es el cable usb de tus dispositivos. Muchos 
-                            microcontroladores usan la comunicación serial, pero las computadoras modernas utilizan USB. 
-                            Para conectar ambos, se usa un adaptador USB-UART.
+                            MQTT funciona a través de un broker que se encarga de distribuir los mensajes entre los dispositivos 
+                            que publican (publishers) y los que están suscritos (subscribers) a un determinado tópico. Gracias a 
+                            esta arquitectura, los dispositivos no necesitan conocerse directamente entre sí, lo que facilita la 
+                            escalabilidad y flexibilidad en sistemas distribuidos.
                         </p>
-                        <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/pc1.png" alt="..." /></figure></center>
-
-                        <h2 class="fw-bolder mb-4 mt-5 fs-5" ><b>Conexión vía pines RX/TX</b></h2>
-                        <p class="fs-6 mb-4">
-                            La comunicación serial mediante pines es un método utilizado para la transmisión de datos entre 
-                            dispositivos electrónicos, como microcontroladores, sensores y módulos de comunicación. Utiliza dos 
-                            pines principales:
-                        </p>
+                        <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/mqtt.png" alt="..." /></figure></center>
 
                         <p class="fs-6 mb-4">
-                            <ul>
-                                <li><b>TX (Transmisión):</b> Envía datos.</li>
-                                <li><b>RX (Recepción):</b> Recibe datos.</li>
-                            </ul>
+                            La práctica realizada tuvo como objetivo explorar el funcionamiento del protocolo MQTT a través de 
+                            una serie de pruebas tanto desde la computadora como desde un microcontrolador ESP32. La primera 
+                            parte consistió en enviar datos desde la computadora a través de MQTT, midiendo el tiempo que tardaba 
+                            un mensaje en ir y regresar. Para ello, se enviaron 1000 mensajes y se midió el tiempo individual de 
+                            cada uno. Una vez obtenidos todos los datos, se calcularon el tiempo promedio, la desviación 
+                            estándar, y se realizó una gráfica con los resultados.
                         </p>
-                        <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/t725.png" alt="..." /></figure></center>
+
+                        <p class="fs-6 mb-4">
+                            En la segunda parte de la práctica se repitió el mismo procedimiento, pero esta vez los mensajes 
+                            fueron enviados desde un ESP32. Al igual que en el anterior, se registraron los tiempos de ida 
+                            y vuelta para 1000 mensajes, y posteriormente se analizaron los datos obtenidos.
+                        </p>
+                        
+                        <p class="fs-6 mb-4">
+                            En la tercera parte, se implementó una comunicación en la que la computadora enviaba un mensaje 
+                            mediante MQTT y el ESP32 lo recibía. Esta prueba permitió verificar la correcta recepción de mensajes 
+                            en el microcontrolador desde un cliente MQTT ejecutado en la computadora.
+                        </p>
+
+                        <p class="fs-6 mb-4">
+                            Finalmente, en la última parte de la práctica, se conectó un potenciómetro al ESP32 para enviar por 
+                            MQTT los valores leídos de un potenciómetro. Esta información se transmitía de forma continua al broker MQTT, 
+                            lo que permitió observar en tiempo real los datos generados por el sensor.
+                        </p>
 
                         <p id="materiales">
                         <h2 class="fw-bolder mb-4 mt-5 fs-5" >- Materiales -</h2>
                         <p class="fs-6 mb-4">
                             <ul>
-                                <li>ESP32: 1</li>
-                                <li>Arduino UNO: 1</li>
+                                <li><b>ESP32</b>: 1</li>
+                                <li><b>Potenciómetro</b>: 1</li>
+                                <li><b>Cables</b>: 3</li>
                             </ul>
                         </p>
                         <p id="desarrollo">
