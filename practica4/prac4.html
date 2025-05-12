@@ -318,29 +318,139 @@
                                     while (true);
                                 }
                             </pre>
-                            <center><figure class="mb-4"><img class="img-fluid rounded" width="400px" src="img/parte2mqtt.png" alt="..." /></figure></center>
+                            <center><figure class="mb-4"><img class="img-fluid rounded" width="600px" src="img/parte2mqtt.png" alt="..." /></figure></center>
                             <p class="fs-6 mb-4">Descargar codigo: <a href="files/mqtt_esp32.ino">Enviar datos a MQTT con ESP32</a></p>
 
-                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Código de Arduino</b></h1>
+                            <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Tercera parte</b></h1>
                             <p class="fs-6 mb-4">
-                                Se utiliza un código en Arduino IDE porque permite recibir y reenviar datos a la computadora de 
-                                manera inmediata, lo que es útil para probar la comunicación serial, depurar programas y 
-                                asegurarse de que los datos se transmiten correctamente. 
+                                El ESP32 se conecta a una red WiFi y se suscribe al tópico "elementos2/augusto" a través del 
+                                broker público test.mosquitto.org. Cada vez que recibe un mensaje en ese tópico, lo imprime por 
+                                el puerto serial indicando el contenido del mensaje y el canal por el cual llegó.
                             </p>
 
+                            <p class="fs-6 mb-4">
+                                Además, desde la computadora se ejecuta un código en Python que actúa como cliente MQTT 
+                                publicador. Este programa permite al usuario escribir mensajes desde la terminal, los cuales se 
+                                envían al mismo tópico al que está suscrito el ESP32.
+                            </p>
+                            
+                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>ESP32</b></h2>
                             <pre>
-                                void setup() {
-                                    Serial.begin(2000000);
-                                  }
-                                  
-                                  void loop() {
-                                    if (Serial.available() > 0) { 
-                                      char r = Serial.read();  
-                                      Serial.println(r);  
+                                #include <WiFi.h>
+                                #include <PubSubClient.h>
+
+                                // Configuración WiFi
+                                const char* ssid = "Guty";  
+                                const char* password = "123456789";
+
+                                // Configuración del broker MQTT
+                                const char* mqtt_server = "test.mosquitto.org";  
+                                const char* topic = "elementos2/augusto";
+
+                                WiFiClient espClient;
+                                PubSubClient client(espClient);
+
+                                // Función de conexión WiFi
+                                void setup_wifi() {
+                                    delay(10);
+                                    //Serial.println("Conectando a WiFi...");
+                                    WiFi.begin(ssid, password);
+                                    while (WiFi.status() != WL_CONNECTED) {
+                                        delay(500);
+                                        Serial.print(".");
                                     }
-                                  }
+                                    Serial.println("\nWiFi conectado.");
+                                }
+
+                                // Función de reconexión MQTT
+                                void reconnect() {
+                                    while (!client.connected()) {
+                                        //Serial.print("Conectando a MQTT...");
+                                        if (client.connect("ESP32_Client")) {
+                                            //Serial.println("Conectado!");
+                                            client.subscribe(topic);  // Suscripción al canal
+                                        } else {
+                                            //Serial.print("Falló. Código: ");
+                                            //Serial.print(client.state());
+                                            //Serial.println(" Intentando en 5 segundos...");
+                                            delay(5000);
+                                        }
+                                    }
+                                }
+
+                                // Callback cuando se recibe un mensaje MQTT
+                                void callback(char* topic, byte* payload, unsigned int length) {
+                                    Serial.print("Mensaje recibido en el canal: ");
+                                    Serial.println(topic);
+                                    Serial.print("Contenido: ");
+                                    for (unsigned int i = 0; i < length; i++) {
+                                        Serial.print((char)payload[i]);
+                                    }
+                                    Serial.println();
+                                }
+
+                                void setup() {
+                                    Serial.begin(115200);
+                                    setup_wifi();
+                                    client.setServer(mqtt_server, 1883);
+                                    client.setCallback(callback);
+
+                                    reconnect();  // Reconectar y suscribirse al canal
+                                }
+
+                                void loop() {
+                                    if (!client.connected()) {
+                                        reconnect();
+                                    }
+                                    client.loop();  // Mantener la conexión MQTT abierta
+                                }
                             </pre>
-                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/arduino_computadora.ino">Código arduino</a></p>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/python_mqtt_esp32.ino">Código recibir mensaje</a></p>
+
+                            <h2 class="fw-bolder mb-4 mt-5 fs-5"><b>Python</b></h2>
+                            <pre>
+                                import paho.mqtt.client as mqtt
+
+                                # Configuración del broker MQTT y canal
+                                mqtt_broker = "test.mosquitto.org"
+                                topic = "elementos2/augusto"
+
+                                # Función que se ejecuta cuando el cliente se conecta al broker
+                                def on_connect(client, userdata, flags, rc):
+                                    print(f"Conectado al broker MQTT con código {rc}")
+                                    print("Escribe un mensaje y presiona Enter para enviarlo (escribe 'exit' para salir):")
+
+                                # Crear el cliente MQTT
+                                client = mqtt.Client()
+
+                                # Asignar la función de conexión
+                                client.on_connect = on_connect
+
+                                # Conectar al broker
+                                client.connect(mqtt_broker, 1883, 60)
+
+                                # Iniciar el loop en un hilo secundario para mantener la conexión activa
+                                client.loop_start()
+
+                                # Bucle para enviar mensajes desde la terminal
+                                try:
+                                    while True:
+                                        mensaje = input("> ")  # Leer mensaje desde la terminal
+                                        if mensaje.lower() == "exit":
+                                            break  # Salir del programa si el usuario escribe 'exit'
+                                        client.publish(topic, mensaje)  # Publicar el mensaje en MQTT
+                                        print(f"Mensaje enviado: {mensaje}")
+
+                                except KeyboardInterrupt:
+                                    print("\nCerrando conexión...")
+
+                                # Detener el loop y cerrar la conexión MQTT
+                                client.loop_stop()
+                                client.disconnect()
+                                print("Desconectado del broker MQTT.")
+                            </pre>
+                            <p class="fs-6 mb-4">Descargar codigo: <a href="files/mqttaesp32.py">Código enviar mensaje</a></p>
+                            <center><figure class="mb-4"><img class="img-fluid rounded" width="600px" src="img/parte3mqtt.png" alt="..." /></figure></center>
 
                             <h1 class="fw-bolder2 mb-4 mt-5 fs-5"><b>Explicación</b></h1>
                             <p class="fs-6 mb-4">
